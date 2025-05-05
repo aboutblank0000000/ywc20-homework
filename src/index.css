@@ -10,14 +10,18 @@
     --color-y20-gradientR: linear-gradient(270deg, var(--color-pink) 0%, var(--color-red) 50%, var(--color-orange) 86%, var(--color-yellow));
 }
 
-body {
+#root {
     font-family: 'Line Seed Sans TH';
 }
 
 .text-gradient {
+    @apply bg-clip-text text-transparent;
+}
+
+.hover-text-gradient {
     @apply bg-clip-text;
 }
 
-.text-gradient:hover {
+.hover-gradient:hover {
     @apply text-transparent;
 }
