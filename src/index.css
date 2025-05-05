@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+@theme {
+    --color-pink: #f81a64;
+    --color-red: #f52222;
+    --color-orange: #ff691d;
+    --color-yellow: #ffb623;
+
+    --color-y20-gradientL: linear-gradient(90deg, var(--color-pink) 0%, var(--color-red) 50%, var(--color-orange) 86%, var(--color-yellow));
+    --color-y20-gradientR: linear-gradient(270deg, var(--color-pink) 0%, var(--color-red) 50%, var(--color-orange) 86%, var(--color-yellow));
+}
+
+body {
+    font-family: 'Line Seed Sans TH';
+}
+
+.text-gradient {
+    @apply bg-clip-text;
+}
+
+.text-gradient:hover {
+    @apply text-transparent;
+}
