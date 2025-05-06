@@ -1,3 +1,4 @@
+import Fuse from 'fuse.js';
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 import logo from './assets/ywc20-logo-main.webp';
@@ -8,6 +9,7 @@ import { apiRequest } from "./utils/api";
 const App = () => {
 
   const [candidates, setCandidates] = useState([])
+  const [searchResult, setSearchResult] = useState()  
 
   useEffect(() => {
     
@@ -25,11 +27,27 @@ const App = () => {
   
 
   const handleSearch = (query) => {
-    const results = candidates.filter(person => {
-      const fullName = `${person.firstName} ${person.lastName}`.toLowerCase();
-      return fullName.includes(query.toLowerCase());
+    const fuse = new Fuse(candidates, {
+      keys: ['firstName', 'lastName', {
+        name: 'fullName',
+        getFn: (item) => `${item.firstName} ${item.lastName}`,
+      }],
+      threshold: 0.3, // lower = stricter match
+      includeScore: true,
     });
-    console.log(results);
+
+    // const results = candidates.filter(person => {
+    //   const fullName = `${person.firstName} ${person.lastName}`.toLowerCase();
+    //   return fullName.includes(query.toLowerCase());
+    // });
+
+    const results = fuse.search(query.toLowerCase());
+
+    const bestMatch = results.reduce((best, current) => {
+      return current.score < best.score ? current : best;
+    });
+
+    setSearchResult(bestMatch.item)
   }
 
   return (
