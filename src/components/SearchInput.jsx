@@ -30,7 +30,7 @@ const SearchInput = ({onSearch}) => {
 			</div>
 			
 			<div
-				className='relative flex items-center px-1 '
+				className='relative flex items-center px-1 w-full'
 			>
 				<div className='pl-3 py-3'>
 					<Icon path={mdiMagnify} size={1} className={`transition-colors duration-300 ${isFocused ? 'text-white': 'text-white/50'}`}/>
@@ -39,7 +39,7 @@ const SearchInput = ({onSearch}) => {
 				<input
 					type="text"
 					placeholder="ค้นหาด้วยชื่อ"
-					className=" w-full py-3 px-3 bg-transparent text-lg text-white placeholder:text-white/30 focus:outline-none"
+					className="w-full py-3 px-3 bg-transparent text-lg text-white placeholder:text-white/30 focus:outline-none"
 					value={query}
 					onChange={(event) => {setQuery(event.target.value)}}
 					onFocus={() => setIsFocused(true)}
