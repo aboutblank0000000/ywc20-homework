@@ -13,7 +13,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="p-8 md:px-8 w-full bg-black ">
+    <header className="p-8 md:px-8 w-full bg-black fixed top-0">
 
       <div className="container mx-auto transition-all">
 
