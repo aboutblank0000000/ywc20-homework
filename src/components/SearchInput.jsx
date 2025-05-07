@@ -1,8 +1,8 @@
 import Icon from '@mdi/react';
-import { mdiMagnify, mdiClose } from '@mdi/js';
+import { mdiMagnify, mdiClose, mdiLoading } from '@mdi/js';
 import { useState } from 'react';
 
-const SearchInput = ({onSearch}) => {
+const SearchInput = ({onSearch, isLoading}) => {
 	const [query, setQuery] = useState('')
 	const [isFocused, setIsFocused] = useState(false);
     
@@ -45,13 +45,14 @@ const SearchInput = ({onSearch}) => {
 					onFocus={() => setIsFocused(true)}
 					onBlur={() => setIsFocused(false)}
 					onKeyDown={onEnterKeyDown}
-					// disabled={isLoading}
+					disabled={isLoading}
 					autoComplete="off"
 				/>
 
 					{query && (
             <button 
               onClick={() => {setQuery('')}} 
+							disabled={isLoading}
               className="p-2 mr-1 absolute right-28 rounded-full hover:bg-white/10 text-white transition-colors duration-200"
             >
               <Icon path={mdiClose} size={0.8} />
@@ -63,12 +64,17 @@ const SearchInput = ({onSearch}) => {
 				>
 
 					<button
-						className={`min-w-24 h-9.5 rounded-lg transition-colors duration-300
+						className={`min-w-24 h-9.5 rounded-lg transition-colors duration-300 flex items-center justify-center
 							${query.trim() ? 'text-white bg-(image:--color-y20-gradientL) ' : 'text-white/40 bg-white/8 cursor-not-allowed'}	
 						`}
 						onClick={() => query.trim() ? onSearch(query) : null}
 					>
-						ค้นหา
+						{isLoading ? (
+							<Icon path={mdiLoading} size={1} className='animate-spin'/>
+						):(
+							"ค้นหา"
+						)}
+						
 					</button>
 
 				</div>

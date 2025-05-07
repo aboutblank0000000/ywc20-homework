@@ -2,7 +2,7 @@ import Icon from '@mdi/react';
 import { mdiLinkVariant } from '@mdi/js';
 import { motion } from "motion/react";
 
-const PassResultCard = ({searchResult}) => {
+const PassResultCard = ({searchResult, resultRef}) => {
 
 	const formatMajor= (major) => {
     const map = {
@@ -15,7 +15,10 @@ const PassResultCard = ({searchResult}) => {
   }
     
 	return(
-		<div className="bg-white/5 rounded-2xl p-8 mx-auto max-w-md w-full flex flex-col items-center gap-4 text-center shadow-lg border border-white/10 backdrop-blur-sm">
+		<div 
+			className="bg-white/5 rounded-2xl px-8 py-10 mx-auto max-w-md w-full flex flex-col items-center gap-4 text-center shadow-lg border border-white/10 backdrop-blur-sm"
+			ref={resultRef}
+		>
 
 			<h2 className="text-2xl font-semibold text-white">🎉 ขอแสดงความยินดีกับ</h2>
 

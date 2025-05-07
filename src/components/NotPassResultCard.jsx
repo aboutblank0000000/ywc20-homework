@@ -1,6 +1,9 @@
-const NotPassResultCard = () => {
+const NotPassResultCard = ({resultRef}) => {
 	return(
-		<div className="bg-white/5 rounded-2xl p-8 mx-auto max-w-md w-full flex flex-col items-center gap-4 text-center shadow-lg border border-white/10 backdrop-blur-sm">
+		<div 
+			className="bg-white/5 rounded-2xl p-8 mx-auto max-w-md w-full flex flex-col items-center gap-4 text-center shadow-lg border border-white/10 backdrop-blur-sm"
+			ref={resultRef}	
+		>
 
 			<h2 className="text-2xl font-semibold text-white">ขอบคุณที่สมัคร 💙</h2>
 
