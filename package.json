@@ -18,7 +18,6 @@
     "react": "^19.0.0",
     "react-confetti-boom": "^1.1.2",
     "react-dom": "^19.0.0",
-    "react-scratchcard-v2": "^1.1.1",
     "tailwindcss": "^4.1.5"
   },
   "devDependencies": {

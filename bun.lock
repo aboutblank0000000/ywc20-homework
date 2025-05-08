@@ -12,7 +12,6 @@
         "react": "^19.0.0",
         "react-confetti-boom": "^1.1.2",
         "react-dom": "^19.0.0",
-        "react-scratchcard-v2": "^1.1.1",
         "tailwindcss": "^4.1.5",
       },
       "devDependencies": {
@@ -443,8 +442,6 @@
     "react-is": ["react-is@16.13.1", "", {}, "sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ=="],
 
     "react-refresh": ["react-refresh@0.17.0", "", {}, ""],
-
-    "react-scratchcard-v2": ["react-scratchcard-v2@1.1.1", "", { "peerDependencies": { "react": "^16.0.0" } }, "sha512-2yzLLOqJBthSIxeN7JViDqzRX/OBR8tLVPxe408AL3aWi/V1nVvUvOwU7aY+1/oAR/uuVTK3DC46unv4LzTKeg=="],
 
     "resolve-from": ["resolve-from@4.0.0", "", {}, ""],
 
