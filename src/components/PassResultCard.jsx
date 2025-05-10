@@ -2,17 +2,50 @@ import Icon from '@mdi/react';
 import { mdiLinkVariant } from '@mdi/js';
 import { motion } from "motion/react";
 
-const PassResultCard = ({searchResult, resultRef}) => {
+const PassResultCard = ({searchResult, majorStats, majorCandidatesCount, resultRef}) => {
 
-	const formatMajor= (major) => {
-    const map = {
-      web_design: "Web Design",
-      web_content: "Web Content",
-      web_programming: "Web Programming",
-      web_marketing: "Web Marketing"
-    };
-    return map[major];
-  }
+	const formatMajor = (major) => {
+		const map = {
+			web_design: {	
+				name: "Web Design",
+				color: {
+					text: "text-pink",
+					bg: "bg-pink",
+					hover: "hover:text-pink",
+				}
+			},
+			web_content: {
+				name: "Web Content",
+				color: {
+					text: "text-yellow",
+					bg: "bg-yellow",
+					hover: "hover:text-yellow",
+				}
+			},
+			web_programming: {
+				name: "Web Programming", 
+				color: {
+					text: "text-red",
+					bg: "bg-red",
+					hover: "hover:text-red",
+				}
+			},
+			web_marketing: {
+				name: "Web Marketing", 
+				color: {
+					text: "text-orange",
+					bg: "bg-orange",
+					hover: "hover:text-orange",
+				},
+			},
+		};
+		return map[major];
+	}
+
+	const majorInfo = formatMajor(searchResult.major);
+
+	const major = searchResult.major.replace("web_", "")
+	const totalMajorApplicants = majorStats?.find((m) => m.major === major)?.count;
     
 	return(
 		<div 
@@ -42,8 +75,31 @@ const PassResultCard = ({searchResult, resultRef}) => {
 
 			<h3 className="text-white/90 text-lg">คุณผ่านเข้าสู่รอบสัมภาษณ์ในสาขา</h3>
 
-			<div className="text-xl font-extrabold text-white tracking-wide bg-(image:--color-y20-gradientR) text-gradient">
-				{formatMajor(searchResult.major)}
+			<div className={`text-xl font-extrabold tracking-wide ${majorInfo.color.text} text-gradient">`} >
+				{majorInfo.name}					
+			</div>
+
+			<div>
+				{totalMajorApplicants && majorCandidatesCount && (
+					<div className="w-full text-left">
+						<p className="text-sm text-white/70 mb-1">
+							🎯 คุณคือ {" "}
+							<span className="font-bold text-white/90">1 ใน {majorCandidatesCount}</span> คน 
+							จากผู้สมัครทั้งหมด <span className="font-bold text-white">{totalMajorApplicants}</span> คนในสาขานี้
+						</p>
+
+						<div className="relative w-full h-3 bg-white/10 rounded-full overflow-hidden">
+						<div
+							className={`absolute top-0 left-0 h-full ${majorInfo.color.bg} rounded-full opacity-90`}
+							style={{ width: `${(majorCandidatesCount / totalMajorApplicants) * 100}%` }}
+						/>
+						</div>
+
+						<p className="text-xs text-white/80 mt-1 italic">
+							นั่นคือ Top {Math.round((majorCandidatesCount / totalMajorApplicants) * 100)}% เลยนะ 🔥
+						</p>
+					</div>
+				)}
 			</div>
 
 			<p className="mt-4 text-sm text-white/80 text-center">
@@ -51,7 +107,7 @@ const PassResultCard = ({searchResult, resultRef}) => {
 				<a
 					href={`https://ywc20.ywc.in.th/interview/${searchResult.major.replace("web_", "")}`}
 					target="_blank"
-					className="inline-flex items-end text-white underline underline-offset-4 hover:text-yellow-300 transition-colors duration-200"
+					className={`inline-flex items-end text-white underline underline-offset-4 ${majorInfo.color.hover} transition-colors duration-200`}
 				>
 					รายละเอียดการสัมภาษณ์ <Icon path={mdiLinkVariant} size={0.8} />
 				</a>

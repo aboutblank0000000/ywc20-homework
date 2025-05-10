@@ -12,9 +12,12 @@ import { apiRequest } from "./utils/api";
 const App = () => {
 
   const [candidates, setCandidates] = useState([]);
+  const [majorStats, setMajorStats] = useState([]);
+  const [majorCandidatesCount, setMajorCandidatesCount] = useState(null);
   const [searchResult, setSearchResult] = useState(null);
   const [searchStatus, setSearchStatus] = useState("idle");
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const resultRef = useRef(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [fadeOut, setFadeOut] = useState(false);
@@ -23,14 +26,28 @@ const App = () => {
     
     // Fetch candidate for further searching
     const fetchCandidates = async () => {
-      const res = await apiRequest("/candidates");
+      const res = await apiRequest("/homework/candidates");
+      
+      if(res.statusCode !== 200) {
+        setIsError(true)
+      }
       
       const allCandidates = Object.values(res.data).flat();
 
       setCandidates(allCandidates);      
     }
 
+    // Fetch applicant stats
+    const fetchStats = async () => {
+      const res = await apiRequest("/registration/stats");
+      
+      const majorStats = Object.values(res.data).flat();
+
+      setMajorStats(majorStats);      
+    }
+
     fetchCandidates()
+    fetchStats()
 
   }, [])
 
@@ -101,14 +118,37 @@ const App = () => {
 
       setSearchResult(bestMatch.item);
       setSearchStatus("found");
+
+      const majorCandidatesCount = candidates.filter(candidate => candidate.major === bestMatch.item.major).length;
+      
+      setMajorCandidatesCount(majorCandidatesCount)
+
     } catch(e) {
       console.error(`Error: ${e}`);
     } finally {
-      await new Promise(res => setTimeout(res, 1000));
+      await new Promise(res => setTimeout(res, 1000)); //Simulate searching delay
       setIsLoading(false);
     }
 
   }
+
+  const exampleName = [
+    "Tralalero tralala",
+    "Lirilila Larila",
+    "Balerina Cappucina"
+  ];
+
+  const [currentNameIndex, setCurrentNameIndex] = useState(0);
+  const currentName = exampleName[currentNameIndex];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentNameIndex((prev) => (prev + 1) % exampleName.length);
+    }, 4000); // every 4 sec
+
+    return () => clearInterval(interval);
+  }, []);
+
 
   return (
     <>
@@ -144,10 +184,35 @@ const App = () => {
             </span>
           </h1>
 
+          <h4
+            className='text-white/70 text-sm text-center -mt-4'
+          >
+            กรอกชื่อจริงภาษาอังกฤษ เช่น {" "}
+
+            <motion.div
+              key={currentName}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5 }}
+              className="inline-block"
+            >
+              {currentName}
+            </motion.div>
+          </h4>
+
           <div className='container px-4 flex flex-col items-center gap-8'>
             <SearchInput onSearch={handleSearch} isLoading={isLoading}/>
 
             <div className='container flex flex-col items-center'>
+              
+              {isError && (
+                <h1
+                  className='text-red text-xl text-center'
+                >
+                  ล้มเหลวในการเชื่อต่อกับเซิร์ฟเวอร์! กรุณาลองใหม่อีกครั้งในภายหลัง
+                </h1>
+              )}
 
               {isLoading && (
                 <motion.div
@@ -168,6 +233,8 @@ const App = () => {
                 > 
                   <PassResultCard
                     searchResult={searchResult}
+                    majorStats={majorStats}
+                    majorCandidatesCount={majorCandidatesCount}
                     resultRef={resultRef}
                   />
                 </motion.div>
