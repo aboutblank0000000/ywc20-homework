@@ -83,8 +83,8 @@ const PassResultCard = ({searchResult, majorStats, majorCandidatesCount, resultR
 				{totalMajorApplicants && majorCandidatesCount && (
 					<div className="w-full text-left">
 						<p className="text-sm text-white/70 mb-1">
-							🎯 คุณคือ {" "}
-							<span className="font-bold text-white/90">1 ใน {majorCandidatesCount}</span> คน 
+							คุณคือ {" "}
+							<span className="font-bold text-white/90">1 ใน {majorCandidatesCount}</span> คน <wbr />
 							จากผู้สมัครทั้งหมด <span className="font-bold text-white">{totalMajorApplicants}</span> คนในสาขานี้
 						</p>
 
