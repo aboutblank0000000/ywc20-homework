@@ -144,7 +144,7 @@ const App = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentNameIndex((prev) => (prev + 1) % exampleName.length);
-    }, 4000); // every 4 sec
+    }, 8000); // every 8 sec
 
     return () => clearInterval(interval);
   }, []);
@@ -194,7 +194,7 @@ const App = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 1 }}
               className="inline-block"
             >
               {currentName}
